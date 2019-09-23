@@ -8,7 +8,7 @@ The Crawler uses the webside of Amazon "Mais Vendidos em Livros".
 The link to the page is: https://www.amazon.com.br/gp/bestsellers/book/ref=zg_bs_nav_0
 
 The program writes the information about the book in the console.
-It gives information about: title, author, price, type of cover.
+It gives information about: title, author, price and type of cover.
 
 It also has the data ranking, Number of Reviews and release date.
 
