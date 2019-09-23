@@ -12,6 +12,24 @@ For the WebScrawling project I used the webside of Amazon "Mais Vendidos em Livr
 The link to the page is: https://www.amazon.com.br/gp/bestsellers/books/ref=zg_bs_nav_0
 */
 
+/*
+/*Still to do: As not every book has a ranking, Number of Reviews and release date, we need to put it in the right order.
+The idea is to create an arrayList with the whole information about one book in a string:
+
+		String neu =".aok-inline-block.zg-item";
+		ArrayList<String> neuList = new ArrayList<>();
+		Elements neuElements=page.select(neu);
+		for (Element e:neuElements) neuList.add(e.text()); 	//iteration over the elements. we only need the text
+
+and compare later on if the current element has this information:
+
+		for(int k=0; k<bookElements.size(); k++) {
+			int add=i;
+			while(!(neuList.get(add).contains(s))) {
+				List.add("none");
+				add++;}
+			List.add(s);}
+*/
 public class Crawl {
 	
 	public static void main(String[] args) throws IOException {
