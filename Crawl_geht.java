@@ -1,4 +1,5 @@
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import org.jsoup.nodes.Document;
@@ -11,7 +12,7 @@ For the WebScrawling project I used the webside of Amazon "Mais Vendidos em Livr
 The link to the page is: https://www.amazon.com.br/gp/bestsellers/books/ref=zg_bs_nav_0
 */
 
-public class Crawl_geht {
+public class Crawl {
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -29,20 +30,14 @@ public class Crawl_geht {
 		String capa= ".aok-inline-block.zg-item > .a-row.a-size-small > .a-size-small.a-color-secondary";		//cover type
 		
 		
-		String neu =".aok-inline-block.zg-item";
-		ArrayList<String> neuList = new ArrayList<>();
-		Elements neuElements=page.select(neu);
-		for (Element e:neuElements) neuList.add(e.text()); 	//iteration over the elements. we only need the text
-		for (int i = 0;i < neuList.size(); i++) {  			//Iteration over the number of books
-		//	System.out.println("\n\n " + neuList.get(i));
-		}
-		
 		
 		//produce a string array to iterate over it 
 		String[] informationType = {title, author, price, capa, ranking, bewertungCount};
 		
 		
 		//ArrayLists to store all information of the books 
+		//the information of a book should have the same number i (all.get(x).get(i))
+		//there are still some problems as the rating and the number of reviews is missing sometimes
 		ArrayList<ArrayList<String>> all=new ArrayList<ArrayList<String>>();
 		//store "special information" (only two elements have it)
 		ArrayList<String> releaseDateList = new ArrayList<>();
@@ -57,49 +52,24 @@ public class Crawl_geht {
 		
 		
 		//iteration that stores information about title, author, price, capa, ranking and bewertungCount in the array
-		int add=0;
 		for(int i=0; i<informationType.length; i++) {
 			ArrayList<String> List = new ArrayList<>();
 				bookElements =page.select(informationType[i]);
-				for(int k=0; k<bookElements.size(); k++) {
-					String s=bookElements.get(k).text();
-					while(!neuList.get(i+add).contains(s)) {
-						List.add("none");
-						add++;
-					}
-						List.add(s);
-					}
-				}
-				
-	
+				for (Element e:bookElements) List.add(e.text());
+				all.add(List);
+		}
 		
-		//test if the Scraper actually works 
-			//int add=0;												//variable to pay attention to special information (release date)
+		//test if the Scraper actually works 											//variable to pay attention to special information (release date)
 			for (int i = 0;i < all.get(0).size(); i++) {  			//Iteration over the number of books
 				System.out.println("Title: " + all.get(0).get(i));	//prints the title
 				System.out.println("Author: " + all.get(1).get(i));	//prints the author
 				System.out.println("Price: " + all.get(2).get(i));	//prints the price
 				System.out.println("Cover: " + all.get(3).get(i));	//prints the cover type
+				System.out.printf("\n \n");
 				
-				/*Because book numbers 24 and 39 have different information (no Number of Reviews and Rating , but Releasedate), 
-				 *I used the if-condition to filter the information.
-				 */
-				/*if(i==23||i==38) {
-					System.out.println("Releasedate: " + releaseDateList.get(add)+ "\n(no reviews until now)"); //prints the releasedate for book 24 and 39
-					add++;
-				}else {*/
-				System.out.println("Number of Reviews: " + all.get(4).get(i));
-				System.out.println("Rating: " + all.get(5).get(i));
-				}
-				/*System.out.print(releaseDateList.size());
-				System.out.print(all.get(4).size());*/
-				
-				System.out.printf("\n \n");;						//new line between the books
 			}
-			//System.out.print(releaseDateList.size());
-			//System.out.print(all.get(4).size());*/
+		}
 	}
-//}
 
 				
 	
